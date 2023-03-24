@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="card">
+    <h5 class="card-header">{{record}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">{{record.email}}</h5>
+      <br>
+      <p class="card-text">{{record.dateCreated| date:'d.m.Y'}}</p>
+        <p class="card-text">{{record.address}}</p>
+        <p class="card-text">{{record.state}}</p>
+        <p class="card-text">{{record.phone}}</p>
+
+
+
+    </div>
+  </div>
+
+  <br>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+    <a href="{% url 'delete' record.id %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'update' record.id %}" class="btn btn-warning">Update</a>
+
+
+
+
+{% endblock %}
