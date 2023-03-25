@@ -5,6 +5,33 @@
 
 {% if user.is_authenticated %}
 
+<form method="GET" action=".">
+
+<div class="row g-3">
+  <div class="col">
+    <input type="text" name="name" class="form-control" placeholder="First name" >
+  </div>
+  <div class="col">
+    <input type="text" name="city" class="form-control" placeholder="City">
+  </div>
+</div>
+<br>
+<div class="row g-3">
+  <div class="col">
+    <input type="text" name="experience" class="form-control" placeholder="Experience" >
+  </div>
+  <div class="col">
+    <input type="text" name="skills" class="form-control" placeholder="Skills">
+  </div>
+</div>
+<br>
+
+<button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+
+<br>
 
 
 
@@ -13,9 +40,12 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
-      <th scope="col">Address</th>
-      <th scope="col">State</th>
+      <th scope="col">City</th>
       <th scope="col">Phone</th>
+      <th scope="col">Education</th>
+      <th scope="col">Experience</th>
+      <th scope="col">Skills</th>
+
 
     </tr>
   </thead>
@@ -25,9 +55,12 @@
     <tr>
       <th><a href="{% url 'record' record.id %}">{{record}}</a></th>
       <td>{{record.email}}</td>
-      <td>{{record.address}}</td>
-      <td>{{record.state}}</td>
+      <td>{{record.city}}</td>
       <td>{{record.phone}}</td>
+      <td>{{record.education}}</td>
+      <td>{{record.experience}}</td>
+      <td>{{record.skills}}</td>
+
 
 
     </tr>

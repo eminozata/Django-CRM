@@ -2,11 +2,27 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddRecordForm
-from .models import Record
+from .models import Record, Actions
 
 # Create your views here.
 def home(request):
     records = Record.objects.all()
+
+    name_query = request.GET.get('name')
+    city_query = request.GET.get('city')
+    experience_query = request.GET.get('experience')
+    skills_query = request.GET.get('skills')
+
+    if is_valid_queryparam(name_query):
+        records = records.filter(firstName__icontains=name_query)
+    if is_valid_queryparam(city_query):
+        records = records.filter(city__icontains=city_query)
+    if is_valid_queryparam(experience_query):
+        records = records.filter(experience__icontains=experience_query)
+    if is_valid_queryparam(skills_query):
+        records = records.filter(skills__icontains=skills_query)
+
+
 
 
     # check login
@@ -25,6 +41,10 @@ def home(request):
         
     else:
         return render(request, 'home.html', {'records': records})
+    
+
+def is_valid_queryparam(param):
+    return param != '' and param is not None
     
 
 def logout_user(request):
@@ -51,6 +71,13 @@ def register_user(request):
 
 
 def customer_record(request, pk):
+
+    username = request.user.username
+    action = 'VIEWED'
+    action = Actions(username=username, action=action)
+    action.save()
+
+
     if request.user.is_authenticated:
         record = Record.objects.get(id=pk)
         return render(request, 'record.html', {'record': record})
@@ -60,6 +87,12 @@ def customer_record(request, pk):
 
 
 def delete_record(request, pk):
+
+    username = request.user.username
+    action = 'DELETED'
+    action = Actions(username=username, action=action)
+    action.save()
+
     if request.user.is_authenticated:
         record = Record.objects.get(id=pk)
         record.delete()
@@ -70,6 +103,12 @@ def delete_record(request, pk):
         return redirect('home')
     
 def add_record(request):
+
+    username = request.user.username
+    action = 'ADDED'
+    action = Actions(username=username, action=action)
+    action.save()
+
     form = AddRecordForm(request.POST or None)
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -84,6 +123,12 @@ def add_record(request):
     
 
 def update_record(request, pk):
+
+    username = request.user.username
+    action = 'UPDATED'
+    action = Actions(username=username, action=action)
+    action.save()
+    
     if request.user.is_authenticated:
         record = Record.objects.get(id=pk)
         form = AddRecordForm(request.POST or None, instance=record)

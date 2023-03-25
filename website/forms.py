@@ -46,14 +46,17 @@ class AddRecordForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Email Address'}))
     phone = forms.CharField(label='', max_length='15', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
-    address = forms.CharField(label='', max_length='200', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Address'}))
     city = forms.CharField(label='', max_length='200', widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'City'}))
-    state = forms.CharField(label='', max_length='200', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'State'}))
-    zipCode = forms.CharField(label='', max_length='8', widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Zip Code'}))
+    education = forms.CharField(label='', max_length='200', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Education'}))
+    experience = forms.CharField(label='', max_length='200', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Experience'}))
+    skills = forms.CharField(label='', max_length='200', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Skills'}))
+    image = forms.ImageField(label='', widget=forms.FileInput(
+        attrs={'class': 'form-control', 'placeholder': 'Image'}))
+    
     
     class Meta:
         model = Record
